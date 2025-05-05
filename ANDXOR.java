@@ -1,4 +1,4 @@
-public class BitwiseString { 
+public class Andxor { 
     public static void main(String[] args) { 
         String str = "Hello World";  // Fixed string "Hello World" 
  
