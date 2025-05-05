@@ -1,0 +1,43 @@
+def evaluate_employee():
+    print("₤ Employee Performance Evaluation Expert System\n")
+
+    name = input("Enter Employee Name: ")
+
+    def get_score(criteria):
+        while True:
+            try:
+                score = int(input(f"Rate {criteria} (1–5): "))
+                if 1 <= score <= 5:
+                    return score
+                else:
+                    print("Please enter a number between 1 and 5.")
+            except ValueError:
+                print("Invalid input. Please enter a valid integer.")
+
+    # Collect ratings
+    punctuality = get_score("punctuality")
+    quality = get_score("work quality")
+    teamwork = get_score("teamwork")
+    initiative = get_score("initiative")
+    communication = get_score("communication")
+
+    # Compute total and average
+    total_score = punctuality + quality + teamwork + initiative + communication
+    average = total_score / 5
+
+    # Determine performance
+    print(f"\nEvaluating performance of {name}...")
+    if average >= 4.5:
+        result = "Excellent"
+    elif average >= 3.5:
+        result = "Good"
+    elif average >= 2.5:
+        result = "Average"
+    else:
+        result = "Needs Improvement"
+
+    print(f"\nFinal Evaluation for {name}: {result}")
+    print(f"Average Score: {average:.2f}/5")
+
+# Run the evaluation
+evaluate_employee()

@@ -1,6 +1,6 @@
 public class Andxor { 
     public static void main(String[] args) { 
-        String str = "Hello World";  // Fixed string "Hello World" 
+        String str = "Hello World";  
  
         System.out.println("\nCharacter | ASCII  | AND with 127 | XOR with 127"); 
         System.out.println("-------------------------------------------------"); 

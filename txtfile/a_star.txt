@@ -1,0 +1,52 @@
+import heapq
+# Graph as adjacency list with edge weights
+graph = {
+ 'S': {'A': 1, 'C': 1},
+ 'A': {'B': 2, 'C': 10},
+ 'B': {'G': 5},
+ 'C': {'D': 3, 'G': 4},
+ 'D': {'G': 4},
+ 'G': {}
+}
+# Heuristic values (h(n))
+heuristics = {
+ 'S': 5,
+ 'A': 5,
+ 'B': 4,
+ 'C': 2,
+ 'D': 6,
+ 'G': 0
+}
+
+def a_star(start, goal):
+ # Priority queue: (f(n), g(n), current_node, path)
+ queue = [(heuristics[start], 0, start, [])]
+ visited = set()
+
+ while queue:
+
+  f, g, node, path = heapq.heappop(queue)
+
+  if node in visited:
+    continue
+
+  path.append(node)
+
+  if node == goal:
+    return path , g
+
+  visited.add(node)
+
+  for neighbor, cost in graph[node].items():
+    if neighbor not in visited:
+      g_new = g + cost
+      f_new = g_new + heuristics[neighbor]
+      heapq.heappush(queue, (f_new, g_new, neighbor, path [:]))
+
+ return None
+
+
+# Run A* from S to G
+path , g = a_star('S', 'G')
+print(path)
+print(g)

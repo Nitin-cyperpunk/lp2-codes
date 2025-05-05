@@ -1,6 +1,4 @@
 import heapq
-
-# Graph representation
 graph = {
     'S': {'A': 1, 'G': 10},
     'A': {'B': 2, 'C': 1},
@@ -9,14 +7,10 @@ graph = {
     'D': {'G': 4},
     'G': {}
 }
-
-# Heuristic values
 heuristics = {'S': 5, 'A': 5, 'B': 4, 'C': 2, 'D': 6, 'G': 0}
-
 def a_star(start, goal):
     pq = [(heuristics[start], 0, start, [])]  # (f = g + h, g, current_node, path_so_far)
     visited = set()
-
     while pq:
         f, g, node, path = heapq.heappop(pq)
 

@@ -1,0 +1,42 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class BasicRSA {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 1. Choose two prime numbers manually
+        BigInteger p = new BigInteger("7919");
+        BigInteger q = new BigInteger("1009");
+
+        // 2. Compute n = p * q
+        BigInteger n = p.multiply(q); // n = 33
+
+        // 3. Compute φ(n) = (p-1)*(q-1)
+        BigInteger phi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE)); // φ = 20
+
+        // 4. Choose e such that 1 < e < φ(n), and gcd(e, φ) = 1
+        BigInteger e = new BigInteger("5"); // Common choice
+
+        // 5. Compute d such that (d * e) mod φ = 1 (modular inverse)
+        BigInteger d = e.modInverse(phi); // d = 3
+
+        // Show keys
+        System.out.println("Public Key: (e=" + e + ", n=" + n + ")");
+        System.out.println("Private Key: (d=" + d + ", n=" + n + ")");
+
+        // 6. Input message from user (as integer)
+        System.out.print("Enter a number to encrypt : ");
+        BigInteger msg = scanner.nextBigInteger();
+
+        // 7. Encrypt: c = m^e mod n
+        BigInteger cipher = msg.modPow(e, n);
+        
+        System.out.println("Encrypted message: " + cipher);
+
+        // 8. Decrypt: m = c^d mod n
+        BigInteger decrypted = cipher.modPow(d, n);
+        System.out.println("Decrypted message: " + decrypted);
+    }
+}

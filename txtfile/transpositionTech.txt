@@ -1,0 +1,69 @@
+public class SimpleTransposition {
+    // Encryption
+    public static String encrypt(String message, int key) {
+        message = message.replaceAll("\\s", ""); // remove spaces
+        int rows = (int) Math.ceil((double) message.length() / key);
+
+        char[][] matrix = new char[rows][key];
+        int k = 0;
+
+        // Fill the matrix row-wise
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < key; j++) {
+                if (k < message.length()) {
+                    matrix[i][j] = message.charAt(k++);
+                } else {
+                    matrix[i][j] = 'X'; // padding
+                }
+            }
+        }
+
+        // Read column-wise to get cipher text
+        StringBuilder cipher = new StringBuilder();
+        for (int j = 0; j < key; j++) {
+            for (int i = 0; i < rows; i++) {
+                cipher.append(matrix[i][j]);
+            }
+        }
+
+        return cipher.toString();
+    }
+
+    // Decryption
+    public static String decrypt(String cipher, int key) {
+        int rows = (int) Math.ceil((double) cipher.length() / key);
+        char[][] matrix = new char[rows][key];
+        int k = 0;
+
+        // Fill the matrix column-wise
+        for (int j = 0; j < key; j++) {
+            for (int i = 0; i < rows; i++) {
+                if (k < cipher.length()) {
+                    matrix[i][j] = cipher.charAt(k++);
+                }
+            }
+        }
+
+        // Read row-wise to get original message
+        StringBuilder plain = new StringBuilder();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < key; j++) {
+                plain.append(matrix[i][j]);
+            }
+        }
+
+        return plain.toString();
+    }
+
+    public static void main(String[] args) {
+        String message = "HELLO WORLD";
+        int key = 4;
+
+        String encrypted = encrypt(message, key);
+        String decrypted = decrypt(encrypted, key);
+
+        System.out.println("Original Message : " + message);
+        System.out.println("Encrypted Message: " + encrypted);
+        System.out.println("Decrypted Message: " + decrypted);
+    }
+}
